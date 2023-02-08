@@ -4,8 +4,7 @@ import React, { useEffect } from "react";
 import { ChangeEvent } from "react";
 import { GRAY_ADDRESS } from "../../constants/addresses";
 import { getEthToTokenOutputAmount, calculateSlippage } from "../../functions/swap";
-import { getExchangeContract, fromWei, toWei } from "../../utils/ethers";
-import { onEthToTokenSwap } from "../../utils/ethers";
+import { fromWei, toWei, onEthToTokenSwap } from "../../utils/ethers";
 
 export function Swap(props: any) {
     const [inputValue, setInputValue] = React.useState('');
@@ -23,6 +22,7 @@ export function Swap(props: any) {
     }
 
     async function getOutputAmount() {
+        // console.log('getoutputamount networkid:', props.network)
         const output = await getEthToTokenOutputAmount(inputValue, GRAY_ADDRESS, props.network);
         const outputWithSlippage = calculateSlippage(slippage, output).minimum;
         setOutputValue(fromWei(outputWithSlippage));

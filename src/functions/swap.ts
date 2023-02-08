@@ -4,12 +4,15 @@ import { getAccountBalance, getTokenExchangeAddressFromFactory, getAccountBalanc
 
 export async function getEthToTokenOutputAmount(inputAmount: string, tokenAddress: string, networkId: number) {
     const [EthReserve, TokenReserve] = await getReserves(tokenAddress, networkId);
-
+    console.log(inputAmount);
+    console.log(EthReserve);
+    console.log(TokenReserve);
     return getOutputAmount(ethers.utils.parseEther(inputAmount), ethers.utils.parseEther(EthReserve), ethers.utils.parseEther(TokenReserve))
 }
 
 async function getReserves(tokenAddress: string, networkId: number) {
-    const exchangeAddress = await getTokenExchangeAddressFromFactory(tokenAddress, networkId);
+    // const exchangeAddress = await getTokenExchangeAddressFromFactory(tokenAddress, networkId);
+    const exchangeAddress = '0xE2540CA59deCDF207c8FE2cc99a660234865206b';
     const ethReserve = (await getAccountBalance(exchangeAddress)).balance;
     const tokenReserve = (await getAccountBalanceAndSymbol(exchangeAddress, tokenAddress)).balance;
     return [ethReserve, tokenReserve];

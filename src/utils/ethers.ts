@@ -26,6 +26,7 @@ export async function onEthToTokenSwap(inputAmount: BigNumber, outputAmount: Big
 
 export async function getAccountBalance(accountAddress: string) {
     const balance = await getProvider().getBalance(accountAddress);
+    console.log('getAccountBalance balance:', balance);
     return {
         balance: ethers.utils.formatEther(balance),
         symbol: 'ETH'
@@ -37,12 +38,12 @@ export async function getAccountBalanceAndSymbol(accountAddress: string, tokenAd
     const balance = await token.balanceOf(accountAddress);
     return {
         balance: ethers.utils.formatEther(balance),
-        symbol: 'symbol'
+        symbol: symbol
     }
 }
 
 export async function getTokenExchangeAddressFromFactory(tokenAddress: string, networkId: number) {
-    console.log('token: ', tokenAddress);
+    console.log('token: , networkid: ', tokenAddress, networkId);
     return getFactoryContract(networkId).getExchange(tokenAddress);
 }
 
